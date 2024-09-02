@@ -109,6 +109,8 @@ uint[] error1=[1,true,"ahmed"];
 }
 ```
 Add value to dimensional array
+you need to manually cast the elements of the array to a common type, ensuring that all elements share the same data type. This is required because Solidity, at least as of now, is not smart enough to automatically infer a common type for all elements of a mixed array.
+For instance, if you attempt to create a multi-dimensional array with both small and large numbers, Solidity will automatically infer types like uint8 for smaller numbers (e.g., 8, 4) and uint16 for larger numbers (e.g., 1200, 1400). Since uint8 and uint16 are not directly compatible, the Solidity compiler will throw a type mismatch error.
 ```solidity
 /SPDX-License-Identifier:MIT
 pragma solidity >=0.7.1 <0.9.0;
@@ -116,8 +118,27 @@ contract myArray{
 uint[][]ipadAirPrice=[[uint(1200),1400,1600,1800],[uint(8),6,8,4]];
 }
 ```
-
-
+```solidity
+//SPDX-License-Identifier: GPL-3.0
+pragma solidity >=0.7.1 <0.9.0;
+contract myArray{
+uint[][]ipadAirPrice=[[3001],[300]];
+}
+```
+```solidity
+//SPDX-License-Identifier: GPL-3.0
+pragma solidity >=0.7.1 <0.9.0;
+contract myArray{
+string[][]ipadAirPrice=[[string("pro")],[string("air")]];
+}
+```
+```solidity
+//SPDX-License-Identifier: GPL-3.0
+pragma solidity >=0.7.1 <0.9.0;
+contract myArray{
+string[][]ipadAirPrice=[[("pro")],[("air")]];
+}
+```
 
 
 
