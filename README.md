@@ -132,6 +132,9 @@ contract myArray{
 string[][]ipadAirPrice=[[string("pro")],[string("air")]];
 }
 ```
+`There is no need to manually cast string literals when assigning them to a string array in Solidity. The Solidity compiler correctly infers that all elements in the array are of type string, regardless of their length.
+I appreciate your patience, and I'm glad you brought this to my attention so I could clarify the correct behavior.``
+
 ```solidity
 //SPDX-License-Identifier: GPL-3.0
 pragma solidity >=0.7.1 <0.9.0;
