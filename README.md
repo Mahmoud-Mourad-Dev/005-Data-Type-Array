@@ -395,6 +395,57 @@ return isCheckNamecorrect;
 }
 }
 ```
+In Solidity, array elements can be of any type, including complex types like mappings or structs. However, there are some restrictions you need to be aware of when working with these types, especially in relation to storage locations and publicly-visible functions
+```solidity
+// SPDX-License-Identifier: GPL-3.0
+pragma solidity >=0.7.1 <0.9.0;
+contract stringArray {
+struct Person {
+    string name;
+    uint age;
+}
+
+Person[] public people;  // Dynamic array of structs
+}
+```
+It is possible to mark state variable arrays public and have Solidity create a getter. The numeric index becomes a required parameter for the getter.
+When you declare an array as public, Solidity generates a getter function for that array. The getter will not return the entire array but rather allow you to access individual elements by providing an index.
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract ArrayGetterExample {
+    // Declare a public dynamic array of uint
+    uint[] public numbers;
+
+    // Constructor to initialize the array with some values
+    constructor() {
+        numbers.push(10);  // numbers[0] = 10
+        numbers.push(20);  // numbers[1] = 20
+        numbers.push(30);  // numbers[2] = 30
+    }
+
+    // Solidity automatically creates this getter:
+    // function numbers(uint index) public view returns (uint) {
+    //     return numbers[index];
+    // }
+}
+```
+In Solidity, accessing an array element past its end (i.e., using an index that is out of bounds) causes a failing assertion and reverts the transaction. Solidity checks array bounds at runtime, and trying to access an invalid index will lead to an exception.
+
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract Array {
+    uint[] public numbers ;
+function getElement(uint index) public view returns (uint) {
+    return numbers[index];  // Fails if index >= numbers.length
+}
+}
+```
+
+
 
 
 
