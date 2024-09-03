@@ -246,6 +246,163 @@ return appleProduct[1];
 }
 }
 ```
+Access elements in multi dimensional array
+```solidity
+// SPDX-License-Identifier: GPL-3.0
+pragma solidity >=0.7.1 <0.9.0;
+contract myArray{
+uint [][] ipadPriceRam =[[uint(1000),1200,1300],[uint(8),16,32]];
+string [][] appleProduct=[["ipad","macbook","iphone"],["airpod","typec","headphone"]];
+function getIpadPriceRam() public view returns(uint){
+return ipadPriceRam[1][2];
+}
+function appleProductAccess() public view returns(string memory){
+return appleProduct[1][0];
+}
+function accessTwoArray() public view returns(uint,uint){
+return(ipadPriceRam[0][0],ipadPriceRam[1][0]);
+}
+}
+```
+Special array bytes
+```solidity
+// SPDX-License-Identifier: GPL-3.0
+pragma solidity >=0.7.1 <0.9.0;
+contract specialArray{
+    //any nunmber of bytes
+bytes public appleProduct= "ipad";
+    // four bytes only
+bytes4 public newApple="ipad"; 
+//upto 32 bytes
+bytes32 public name="mahmoud ibrahim elsayed"; 
+    // index in array
+function access() public view returns(bytes1){ 
+return appleProduct[1];
+}
+    // get length
+function getLength() public view returns(uint){ 
+return appleProduct.length;
+}
+
+function popArray()public{
+return appleProduct.pop();
+}
+}
+```
+String dont have length property ,it should be converted in to bytes
+String to bytes
+```solidity
+// SPDX-License-Identifier: GPL-3.0
+pragma solidity >=0.7.1 <0.9.0;
+contract stringArray {
+string apple="ipadPro";
+/*function getLength() public view returns(uint){ 
+return apple.length;}*/
+bytes stringToBytes=bytes(apple);
+function getLength() public view returns(uint){ //error
+return stringToBytes.length;
+}
+}
+```
+Compare two string
+```solidity
+// SPDX-License-Identifier: GPL-3.0
+pragma solidity >=0.7.1 <0.9.0;
+contract stringCompare {
+function compareString(string memory _firstName) public pure returns(bool) {
+if(keccak256(abi.encodePacked(_firstName))==keccak256(abi.encodePacked("mourad"))){
+return true;
+}else{
+return false;
+}
+}
+}
+```
+Function output array
+```solidity
+// SPDX-License-Identifier: GPL-3.0
+pragma solidity >=0.7.1 <0.9.0;
+contract arrayOutput {
+uint [] ipadPrice=[1000,2000,3000];
+function outputArray()public view returns(uint[] memory){
+return ipadPrice;
+}
+}
+```
+How to get the largest element in an array — Solidity?
+```solidity
+// SPDX-License-Identifier: GPL-3.0
+pragma solidity >=0.7.1 <0.9.0;
+contract arrayOutput {
+uint [] ipadPrice=[1100,1200,1300,1400,1500];
+function getMaxPric() public view returns(uint){
+uint i;
+uint maxPrice=0;
+for(i=0;i<5;i++){
+if(maxPrice<ipadPrice[i]){
+maxPrice=ipadPrice[i];
+}
+}
+return maxPrice;
+}
+}
+```
+Multidimensional arrays in solidity and mapping
+```solidity
+// SPDX-License-Identifier: GPL-3.0
+pragma solidity >=0.7.0 <0.9.0;
+contract arrayMapping{
+mapping(address => string[][])  getInfo;
+function addNameJop(string memory name, string memory jop) public{
+getInfo[msg.sender].push([name, jop]);
+}
+function getNameJop() public view returns(string [][] memory){
+return getInfo[msg.sender];
+}
+}
+```
+Array example contract to check the price in array
+```solidity
+//SPDX-License-Identifier: GPL-3.0
+pragma solidity >=0.7.0 <0.9.0;
+contract ipadPrice{
+uint256 [] ipadPriceInShop=[1000,2000,5000,4000,6000,10001,3000,250000];
+function checkIpadPrice(uint thePrice) public view returns(bool){
+bool trueprice = false;
+for(uint i=0;i<7;i++){
+if(ipadPriceInShop[i]== thePrice){
+trueprice=true;
+}
+}
+return trueprice;
+}
+}
+```
+Array example check true name -Compare two string
+```solidity
+//SPDX-License-Identifier: GPL-3.0
+pragma solidity >=0.7.0 <0.9.0;
+contract forLoopTest{
+string[] className=["ahmed","mourad","mahmoud","hamza"];
+function findclassName(string memory checkName) public view returns (bool){
+bool isCheckNamecorrect=false;
+for(uint i=0;i<4;i++){
+if(keccak256(abi.encodePacked(className[i]))==keccak256(abi.encodePacked(checkName))){
+isCheckNamecorrect=true;  
+        }
+}
+return isCheckNamecorrect;
+}
+}
+```
+
+
+
+
+
+
+
+
 
 
 
