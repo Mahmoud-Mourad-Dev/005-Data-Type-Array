@@ -143,6 +143,115 @@ string[][]ipadAirPrice=[[("pro")],[("air")]];
 }
 ```
 
+Array Members
+- Push
+   Adds an element to the end of the array. For dynamic arrays only.
+  You can’t push to a fixed size array because it has been fixed already, and memory has already been allocated to it. If you want to push, you need to use dynamic arrays. Dynamic arrays have no fixed 
+  size, can contain numbers, and keep growing.
+
+
+```solidity
+  // SPDX-License-Identifier: GPL-3.0
+pragma solidity ^0.8.1;
+contract myArray{
+uint[] public ipadProPrice=[1000,1100,1200,1300,1400,1500];
+string [] public appleProduct=["ipad","macbook","iphone"];
+
+function addToPrice(uint addIpadPrice) public{
+ipadProPrice.push(addIpadPrice);
+}
+function addToAplle(string memory newAplleProduct) public{
+appleProduct.push(newAplleProduct);
+}
+function addToPrice() public{
+ipadProPrice.push()=5;
+}
+function addToAplle() public{
+appleProduct.push()="ipadAir";
+}
+}
+```
+Length
+Length Arrays have length member that contains that elements
+
+```solidity
+// SPDX-License-Identifier: GPL-3.0
+pragma solidity >=0.7.1 <0.9.0;
+contract myArray{
+uint[] public ipadProPrice=[1000,1100,1200,1300,1400,1500];
+string [] public appleProduct=["ipad","macbook","iphone"];
+function getLength() public view returns(uint){
+    return ipadProPrice.length;
+}
+function getLengthS() public view returns(uint){
+    return appleProduct.length;
+}
+}
+```
+- Pop
+  pop() items can be removed from the array using pop method which remove the last index and adjust the length pop method in dynamic array only
+```solidity
+  // SPDX-License-Identifier: GPL-3.0
+pragma solidity >=0.7.1 <0.9.0;
+contract myArray{
+uint[] public ipadProPrice=[1000,1100,1200,1300,1400,1500];
+string [] public appleProduct=["ipad","macbook","iphone"];
+function getLength() public view returns(uint){
+return ipadProPrice.length;
+}
+function getLengthS() public view returns(uint){
+return appleProduct.length;
+}
+function popMethod() public{
+ipadProPrice.pop();
+appleProduct.pop();
+}
+}
+```
+-Delete
+Delete member not delete the index (index to zero)
+```solidity
+// SPDX-License-Identifier: GPL-3.0
+pragma solidity >=0.7.1 <0.9.0;
+contract myArray{
+uint[] public ipadProPrice=[1000,1100,1200,1300,1400,1500];
+string [] public appleProduct=["ipad","macbook","iphone"];
+function deleteMethod() public {
+delete ipadProPrice[1];
+}
+}
+```
+Access elements in array
+```solidity
+// SPDX-License-Identifier: GPL-3.0
+pragma solidity >=0.7.1 <0.9.0;
+contract myArray{
+uint[]  ipadProPrice=[1000,1100,1200,1300,1400,1500];
+string []  appleProduct=["ipad","macbook","iphone"];
+uint public accessElement=ipadProPrice[5];
+string public accessElementS=appleProduct[1];
+}
+```
+```solidity
+/ SPDX-License-Identifier: GPL-3.0
+pragma solidity >=0.7.1 <0.9.0;
+contract myArray{
+uint[]  ipadProPrice=[1000,1100,1200,1300,1400,1500];
+string []  appleProduct=["ipad","macbook","iphone"];
+function getIpadPrice() public view returns(uint){
+return ipadProPrice[2];
+}
+function getAppleProduct() public view returns( string memory){
+return appleProduct[1];
+}
+}
+```
+
+
+
+
+
+
 
 
 
