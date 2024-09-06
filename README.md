@@ -481,6 +481,24 @@ contract DynamicArrayExample {
     }
 }
 ```
+-Concatenate
+In Solidity, you can concatenate multiple string values using the string.concat function. This function returns a single string that contains the combined content of all the arguments provided, without adding any extra padding.
+
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+contract Concatenate {
+    string  public result =string.concat("hello", " mourad");
+}
+```
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+contract Concatenate {
+    bytes  public result =bytes.concat("hello", " mourad");
+}
+
+```
 
 
 
