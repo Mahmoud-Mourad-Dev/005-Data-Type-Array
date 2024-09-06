@@ -447,13 +447,40 @@ function getElement(uint index) public view returns (uint) {
 ```
 Note
 Dynamically-sized arrays can only be resized in storage. In memory, such arrays can be of arbitrary size but the size cannot be changed once an array is allocated.
-في calldata و memory، يتم تعبئة المصفوفات بإحكام، مما يعني أن البيانات تُخزن بشكل متتالي دون ترك فراغات بين العناصر. هذا يساعد على تحسين كفاءة استهلاك المساحة وسرعة الوصول إلى البيانات.
+```solidity
 
 
+//SPDX-License-Identifier:MIT
+pragma solidity ^0.8.25;
+contract dynamicArrayResized{
+    uint[]numbers;
+
+    function addNumber(uint _numbers) public {        
+        numbers.push(_numbers);
+    }
 
 
+    function getLength() public view returns(uint){
+        return numbers.length;
+    }
+}
+```
+```solidity
+pragma solidity ^0.8.0;
 
+contract DynamicArrayExample {
+    function processArray() public pure {
+        // Dynamically-sized array in memory
+        uint[] memory dynamicArray = new uint[](3); // Allocate memory for 3 elements
+        dynamicArray[0] = 10;
+        dynamicArray[1] = 20;
+        dynamicArray[2] = 30;
 
+        // You can work with the dynamically-sized array in memory
+        // But you cannot resize it once allocated
+    }
+}
+```
 
 
 
