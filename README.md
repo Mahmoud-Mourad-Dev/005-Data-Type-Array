@@ -265,6 +265,7 @@ return(ipadPriceRam[0][0],ipadPriceRam[1][0]);
 }
 ```
 Special array bytes
+Variables of type bytes and string are special arrays. The bytes type is similar to bytes1[], but it is packed tightly in calldata and memory. string is equal to bytes but does not allow length or index access
 ```solidity
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity >=0.7.1 <0.9.0;
@@ -444,6 +445,11 @@ function getElement(uint index) public view returns (uint) {
 }
 }
 ```
+Note
+Dynamically-sized arrays can only be resized in storage. In memory, such arrays can be of arbitrary size but the size cannot be changed once an array is allocated.
+في calldata و memory، يتم تعبئة المصفوفات بإحكام، مما يعني أن البيانات تُخزن بشكل متتالي دون ترك فراغات بين العناصر. هذا يساعد على تحسين كفاءة استهلاك المساحة وسرعة الوصول إلى البيانات.
+
+
 
 
 
