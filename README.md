@@ -598,6 +598,7 @@ contract MemoryArrayExample {
 }
 ```
 
+The array literal [1, -1] is invalid because the type of the first expression is uint8 while the type of the second is int8 and they cannot be implicitly converted to each other. To make it work, you can use [int8(1), -1], for example.
 
 
 
