@@ -598,7 +598,49 @@ contract MemoryArrayExample {
 }
 ```
 
-The array literal [1, -1] is invalid because the type of the first expression is uint8 while the type of the second is int8 and they cannot be implicitly converted to each other. To make it work, you can use [int8(1), -1], for example.
+The array literal [1, -1] is invalid because the type of the first expression is uint8 while the type of the second is int8 and they cannot be implicitly converted to each other. To make it work, you can use [int8(1), -1]
+```solidity
+// SPDX-License-Identifier: GPL-3.0
+pragma solidity >=0.4.16 <0.9.0;
+contract C {
+    int[] a = [int(1),2];
+    int[] b = [int8(1),-2];
+    uint[] c = [1,2];  
+}
+```
+n Solidity, fixed-size memory arrays cannot be directly assigned to dynamically-sized memory arrays due to their differing nature. Fixed-size arrays have a predetermined length, while dynamically-sized arrays can change in size during execution. Therefore, Solidity doesn't allow direct assignment between these types.
+
+```solidity
+// SPDX-License-Identifier: GPL-3.0
+pragma solidity >=0.4.16 <0.9.0;
+
+contract C {
+    function invalidAssignment() public pure {
+        uint[3] memory fixedArray = [uint(1), uint(2), uint(3)];
+        uint[] memory dynamicArray = fixedArray;  // This is not allowed
+    }
+}
+```
+You can use a loop to copy the elements from a fixed-size array to a dynamically-sized array like this:
+```solidity
+ SPDX-License-Identifier: GPL-3.0
+pragma solidity >=0.4.16 <0.9.0;
+
+contract C {
+    function copyArray() public pure returns (uint[] memory) {
+        uint[3] memory fixedArray = [uint(1), uint(2), uint(3)];
+        uint[] memory dynamicArray = new uint[](fixedArray.length);  // Create a dynamic array
+
+        // Manually copy the elements
+        for (uint i = 0; i < fixedArray.length; i++) {
+            dynamicArray[i] = fixedArray[i];
+        }
+
+        return dynamicArray;
+    }
+}
+```
+
 
 
 
