@@ -492,6 +492,16 @@ contract Concatenate {
 }
 ```
 ```solidity
+// SPDX-License-Identifier: GPL-3.0
+pragma solidity ^0.8.12;
+
+contract C {
+    function concatString(string memory firstName, string memory lastName) public pure returns(string memory){
+        return string.concat(firstName,"",lastName);
+    }
+}
+```
+```solidity
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 contract Concatenate {
@@ -499,7 +509,94 @@ contract Concatenate {
 }
 
 ```
+```solidity
+// SPDX-License-Identifier: GPL-3.0
+pragma solidity ^0.8.12;
 
+contract C {
+    string s = "Storage";  // A storage string initialized with "Storage"
+
+    // Public function f takes three arguments:
+    // - bytes calldata bc: a byte array passed as calldata
+    // - string memory sm: a string passed as memory
+    // - bytes16 b: a fixed-size byte array (16 bytes)
+    function f(bytes calldata bc, string memory sm, bytes16 b) public view {
+        // Concatenating the storage string `s`, the byte array `bc` converted to a string, 
+        // the string literal "Literal", and the memory string `sm`.
+        string memory concatString = string.concat(s, string(bc), "Literal", sm);
+        
+        // Asserting that the length of the concatenated string is equal to the sum of:
+        // - length of the storage string `s`
+        // - length of the byte array `bc`
+        // - length of the string literal "Literal" (which is 7)
+        // - length of the memory string `sm`
+        assert((bytes(s).length + bc.length + 7 + bytes(sm).length) == bytes(concatString).length);
+
+        // Concatenating different bytes arrays:
+        // - bytes(s): the storage string converted to bytes
+        // - bc: the entire byte array passed as calldata
+        // - bc[:2]: slicing the first two bytes of the byte array `bc`
+        // - the string literal "Literal" converted to bytes
+        // - the memory string `sm` converted to bytes
+        // - the fixed-size byte array `b`
+        bytes memory concatBytes = bytes.concat(bytes(s), bc, bc[:2], "Literal", bytes(sm), b);
+        
+        // Asserting that the length of the concatenated bytes array is equal to the sum of:
+        // - length of the storage string `s`
+        // - length of the byte array `bc`
+        // - length of the first two bytes of `bc` (2 bytes)
+        // - length of the string literal "Literal" (7 bytes)
+        // - length of the memory string `sm`
+        // - length of the fixed-size byte array `b` (which is always 16 bytes, since it's bytes16)
+        assert((bytes(s).length + bc.length + 2 + 7 + bytes(sm).length + b.length) == concatBytes.length);
+    }
+}
+```
+Allocating Memory Arrays
+In Solidity, memory arrays are temporary data structures that only exist during the execution of a function. When a memory array is allocated, it is initialized with a specific size, and its size cannot be changed after allocation.
+to allocate a memory array, use the new keyword and specify the size of the array in square brackets [].
+Size is Fixed: Memory arrays have a fixed size once allocated and cannot be resized during execution.
+Temporary: Memory arrays are only available during the execution of a function and are deallocated afterward.
+Default Values: When a memory array is allocated, each element is initialized to the default value for its type (0 for uint, false for bool, etc.).
+```solidity
+
+/ SPDX-License-Identifier: GPL-3.0
+pragma solidity >=0.4.16 <0.9.0;
+
+contract C {
+    function f(uint len) public pure {
+        uint[] memory a = new uint[](7);
+        bytes memory b = new bytes(len);
+        assert(a.length == 7);
+        assert(b.length == len);
+        a[6] = 8;
+// a[10] = 8 ; error when deploy
+    }
+}
+```
+In Solidity, errors like out-of-bounds array access only occur at runtime, not at compile time. This means that when the code is executed, Solidity checks whether the index used to access the array is within the bounds of the array.
+
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract MemoryArrayExample {
+    
+    // Function that allocates and initializes a memory array
+    function createMemoryArray(uint size) public pure returns (uint[] memory) {
+        // Allocate a memory array of uint with the specified size
+        uint[] memory memoryArray = new uint[](size);
+        
+        // Initialize the array elements
+        for (uint i = 0; i < size; i++) {
+            memoryArray[i] = i + 1;  // Initialize each element with i+1
+        }
+        
+        // Return the memory array
+        return memoryArray;
+    }
+}
+```
 
 
 
