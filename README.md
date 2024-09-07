@@ -623,7 +623,7 @@ contract C {
 ```
 You can use a loop to copy the elements from a fixed-size array to a dynamically-sized array like this:
 ```solidity
- SPDX-License-Identifier: GPL-3.0
+ //SPDX-License-Identifier: GPL-3.0
 pragma solidity >=0.4.16 <0.9.0;
 
 contract C {
@@ -640,7 +640,21 @@ contract C {
     }
 }
 ```
+If you want to initialize dynamically-sized arrays, you have to assign the individual elements:
+```solidity
 
+// SPDX-License-Identifier: GPL-3.0
+pragma solidity >=0.4.16 <0.9.0;
+
+contract C {
+    function f() public pure {
+        uint[] memory x = new uint[](3);
+        x[0] = 1;
+        x[1] = 3;
+        x[2] = 4;
+    }
+}
+```
 
 
 
